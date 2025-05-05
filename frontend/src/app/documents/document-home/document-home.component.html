@@ -1,0 +1,41 @@
+<div class="main-container">
+  <header>
+    <div class="title">
+      <h1>Document Management Tool</h1>
+    </div>
+    <div class="user-info">
+      <span class="welcome-text">Welcome, <span class="username">{{ username }}</span></span>
+      <div class="avatar">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+    </div>
+  </header>
+  <div class="toolbar">
+    <button (click)="Back()" mat-button class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+    <span class="page-title">Create and Manage Product</span>
+    <div class="action-buttons">
+      <button mat-raised-button  (click)="addNewProduct()">
+        <mat-icon>add</mat-icon>
+        Add New Products
+      </button>
+    </div>
+  </div>
+  <div class="cards-container">
+    <div class="card" *ngFor="let doc of documents">
+      <h3>{{ doc.title }}</h3>
+
+      <div class="pdf-preview">
+        <iframe [src]="doc.filename | safe" frameborder="0"></iframe>
+      </div>
+
+      <p><strong>Document ID:</strong> {{ doc.document_id }}</p>
+<!--      <p><strong>Uploaded On:</strong> {{ doc.created_at | date: 'medium' }}</p>-->
+      <a [href]="doc.filename" target="_blank">Open Full Document</a>
+    </div>
+  </div>
+
+
+</div>
