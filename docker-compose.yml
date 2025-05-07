@@ -1,49 +1,48 @@
 version: '3.8'
-
+ 
 services:
+ 
   backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
+    image: backend
+    container_name: backend
     ports:
       - "9000:9000"
     environment:
-      - DATABASE_URL=DATABASE_URL
-      - SECRET_KEY=your-secret-key-here
+      - SECRET_KEY=Himanshu
       - ALGORITHM=HS256
       - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - AZURE_OPENAI_ENDPOINT=
+      - AZURE_OPENAI_KEY=
+      - AZURE_DEPLOYMENT_NAME=
+      - AZURE_API_VERSION=
+      - CONTAINER_NAME=
+      - BLOB_CONNECTION_STRING=
+ 
     depends_on:
       - db
-    volumes:
-      - ./backend:/app
-      - backend_data:/app/data
-
+ 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: frontendv1
+    container_name: frontend
     ports:
-      - "4200:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "4200:80"
     environment:
-      - API_URL=http://backend:9000
+      - apiURL=http://backend:9000
     depends_on:
       - backend
-
+ 
   db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=docmanagement
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-
+ 
 volumes:
   mysql_data:
-  backend_data: 
+ 
